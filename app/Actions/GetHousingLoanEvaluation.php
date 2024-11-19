@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Actions;
+
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Reader\IReader;
+use Lorisleiva\Actions\Concerns\AsAction;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use App\Enums\{Computed, Input};
+use Illuminate\Support\Arr;
+use App\Data\InputData;
+
+class GetHousingLoanEvaluation
+{
+    use AsAction;
+
+    const CELL = 0;
+    const VALUE = 1;
+
+    /**
+     * @throws Exception
+     */
+    public function handle(array $inputs): array
+    {
+        $inputFileType = 'Xlsx';
+        $inputFileName = "resources/docs/SHDG - Evaluation sheet V1-0-2 - 240819.xlsx";
+        $reader = IOFactory::createReader($inputFileType);
+        $reader->setReadDataOnly(true);
+        $reader->setLoadSheetsOnly(["Sheet1"]);
+        $reader->setReadEmptyCells(false);
+        $spreadsheet = $reader->load($inputFileName);
+        foreach ($inputs as $i => $value) {
+            $cell = Input::tryFrom($i)->cell();
+            if ($cell)
+                $spreadsheet->getActiveSheet()->setCellValue($cell, $value);
+        }
+
+        Calculation::getInstance($spreadsheet)->clearCalculationCache();
+
+        $computed = [];
+        foreach(Computed::cases() as $case) {
+            $cellValue = match ($case) {
+                Computed::maximum_loanable_amount_principal,
+                Computed::net_loanable_amount_principal,
+                Computed::net_loanable_amount_total,
+                Computed::computation_label_1_principal,
+                Computed::computation_label_2_principal,
+                Computed::computation_label_3_principal,
+                Computed::computation_label_4_principal,
+                Computed::total_label_1_principal,
+                Computed::total_label_2_principal,
+                Computed::total_label_3_principal,
+                Computed::total_label_4_principal,
+                Computed::building_value,
+                Computed::zone, Computed::tariff,
+                Computed::doc_stamp_percent_fire_insurance,
+                Computed::fire_service_tax_percent,
+                Computed::value_added_tax_percent_fire_insurance,
+                Computed::lgu_tax_percent_fire_insurance,
+                Computed::selling_price, Computed::price_ceiling, Computed::appraised_value, Computed::desired_loan, Computed::max_loan => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
+                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue()
+            };
+            Arr::set($computed, $case->name, $cellValue);
+        }
+
+        $gray_cells = [];
+        foreach(Input::cases() as $case) {
+            $cellValue = match ($case) {
+                Input::appraised_value_lot => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue(),
+                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
+            };
+            Arr::set($gray_cells, $case->name, $cellValue);
+        }
+
+        return [
+            'inputs' => $gray_cells,
+            'computed' => $computed
+        ];
+    }
+}
