@@ -353,8 +353,8 @@ test('action test', function (array $simulation) {
     ];
 
     $data = app(GetHousingLoanEvaluation::class)->run($inputs);
-//    dd($data);
-})->with('simulation')->skip();
+    dd($data);
+})->with('simulation');
 
 
 test('end point test', function () {
