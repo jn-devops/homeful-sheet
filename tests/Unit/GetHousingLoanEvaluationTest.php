@@ -389,4 +389,6 @@ test('end point test', function () {
     $response = $this->post(route('evaluate'), $inputs);
     expect($response->status())->toBe(200);
     expect($response->json())->toHaveCount(2);
-})->skip();
+    expect($response->json('inputs'))->toHaveCount(30);
+    expect($response->json('computed'))->toHaveCount(83);
+});

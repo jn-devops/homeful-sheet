@@ -4,36 +4,36 @@ namespace App\Enums;
 
 enum Input: string
 {
-    case title = 'title';
-    case guideline = 'guideline';
-    case program = 'program';
-    case application_date = 'application date';
-    case principal_borrower = 'principal borrower';
-    case co_borrower_1 = 'coborrower 1';
-    case co_borrower_2 = 'coborrower 2';
-    case birth_date = 'birth date';
-    case birth_date_coborrower_1 = 'birth date - coborrower 1';
-    case birth_date_coborrower_2 = 'birth date - coborrower 2';
-    case work_area = 'work area';
-    case employment = 'employment';
-    case pay_mode = 'pay mode';
-    case type_of_development = 'type of development';
-    case project_type = 'project type';
-    case housing_type = 'housing type';
-    case total_floor_number = 'total floor number';
-    case total_floor_area = 'total floor area';
-    case price_ceiling = 'price ceiling';
-    case lts_number = 'lts number';
-    case lts_date = 'lts date';
-    case selling_price = 'selling price';
-    case appraised_value_lot = 'appraised value - lot';
-    case appraised_value_house = 'appraised value - house';
-    case desired_loan = 'desired loan';
-    case gross_income_principal = 'gross income - principal';
-    case gross_income_coborrower_1 = 'gross income - coborrower 1';
-    case gross_income_coborrower_2 = 'gross income - coborrower 2';
-    case repricing_period = 'repricing period';
-    case loan_period_months = 'loan_period_months';
+    case title = 'TITLE';
+    case guideline = 'GUIDELINE';
+    case program = 'PROGRAM';
+    case application_date = 'APPLICATION_DATE';
+    case principal_borrower = 'PRINCIPAL_BORROWER';
+    case co_borrower_1 = 'COBORROWER_1';
+    case co_borrower_2 = 'COBORROWER_2';
+    case birth_date = 'BIRTH_DATE';
+    case birth_date_coborrower_1 = 'BIRTH_DATE_COBORROWER_1';
+    case birth_date_coborrower_2 = 'BIRTH_DATE_COBORROWER_2';
+    case work_area = 'WORK_AREA';
+    case employment = 'EMPLOYMENT';
+    case pay_mode = 'PAY_MODE';
+    case type_of_development = 'TYPE_OF_DEVELOPMENT';
+    case project_type = 'PROJECT_TYPE';
+    case housing_type = 'HOUSING_TYPE';
+    case total_floor_number = 'TOTAL_FLOOR_NUMBER';
+    case total_floor_area = 'TOTAL_FLOOR_AREA';
+    case price_ceiling = 'PRICE_CEILING';
+    case lts_number = 'LTS_NUMBER';
+    case lts_date = 'LTS_DATE';
+    case selling_price = 'SELLING_PRICE';
+    case appraised_value_lot = 'APPRAISED_VALUE_LOT';
+    case appraised_value_house = 'APPRAISED_VALUE_HOUSE';
+    case desired_loan = 'DESIRED_LOAN';
+    case gross_income_principal = 'GROSS_INCOME_PRINCIPAL';
+    case gross_income_coborrower_1 = 'GROSS_INCOME_COBORROWER_1';
+    case gross_income_coborrower_2 = 'GROSS_INCOME_COBORROWER_2';
+    case repricing_period = 'REPRICING_PERIOD';
+    case loan_period_months = 'LOAN_PERIOD_MONTHS';
 
     public function cell(): string
     {
@@ -64,8 +64,8 @@ enum Input: string
             Input::appraised_value_house => env('appraised value - house', 'F26'),
             Input::desired_loan => env('desired loan', 'F31'),
             Input::gross_income_principal => env('gross income - principal', 'F36'),
-            Input::gross_income_coborrower_1 => env('gross income - coborrower 1', 'F42'),     
-            Input::gross_income_coborrower_2 => env('gross income - coborrower 2', 'F58'),       
+            Input::gross_income_coborrower_1 => env('gross income - coborrower 1', 'F42'),
+            Input::gross_income_coborrower_2 => env('gross income - coborrower 2', 'F58'),
             Input::repricing_period => env('repricing period', 'F94'),
             Input::loan_period_months => env('loan_term', 'F96'),
         };
@@ -97,7 +97,13 @@ enum Input: string
             Input::desired_loan => 750000,
             Input::gross_income_principal => 18000,
             Input::repricing_period => '3 yrs',
-            Input::loan_period_months => 30
+            Input::loan_period_months => 30,
+            Input::co_borrower_1 => null,
+            Input::co_borrower_2 => null,
+            Input::birth_date_coborrower_1 => null,
+            Input::birth_date_coborrower_2 => null,
+            Input::gross_income_coborrower_1 => null,
+            Input::gross_income_coborrower_2 => null
         };
     }
 }

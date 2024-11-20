@@ -32,20 +32,20 @@ class GetHousingLoanEvaluation
         $spreadsheet = $reader->load($inputFileName);
 
         foreach ($inputs as $i => $value) {
-            if($i == "coborrower 1"){
+            if($i == "COBORROWER_1"){
                  if($value){
-                 $spreadsheet->getActiveSheet()->setCellValue('N7', TRUE);                
+                 $spreadsheet->getActiveSheet()->setCellValue('N7', TRUE);
                  }
                  else{
-                 $spreadsheet->getActiveSheet()->setCellValue('N7', FALSE);       
+                 $spreadsheet->getActiveSheet()->setCellValue('N7', FALSE);
                  }
             }
-            if($i == "coborrower 2"){
+            if($i == "COBORROWER_2"){
                  if($value){
                  $spreadsheet->getActiveSheet()->setCellValue('N8', TRUE);
                  }else{
                  $spreadsheet->getActiveSheet()->setCellValue('N8', FALSE);  }
-             
+
             }
             $cell = Input::tryFrom($i)->cell();
             if ($cell)
@@ -99,14 +99,14 @@ class GetHousingLoanEvaluation
                 Computed::fire_service_tax_percent,
                 Computed::value_added_tax_percent_fire_insurance,
                 Computed::lgu_tax_percent_fire_insurance,
-                Computed::selling_price, 
-                Computed::price_ceiling, 
-                Computed::appraised_value, 
-                Computed::desired_loan, 
+                Computed::selling_price,
+                Computed::price_ceiling,
+                Computed::appraised_value,
+                Computed::desired_loan,
                 Computed::max_loan => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
                 default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue()
             };
-            Arr::set($computed, $case->name, $cellValue);
+            Arr::set($computed, $case->value, $cellValue);
         }
         $gray_cells = [];
         foreach(Input::cases() as $case) {
@@ -114,7 +114,7 @@ class GetHousingLoanEvaluation
                 Input::appraised_value_lot => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue(),
                 default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
             };
-            Arr::set($gray_cells, $case->name, $cellValue);
+            Arr::set($gray_cells, $case->value, $cellValue);
         }
 
 
