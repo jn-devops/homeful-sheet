@@ -1,22 +1,43 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+### Dropdowns
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Homeful Sheet
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Homeful Sheet, please send an e-mail to Lester Hurtado via [lester@hurtado.ph](mailto:lester@hurtado.ph). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### GUIDELINE
+* 403/349
+* 396/349
+#### PROGRAM
+* CTS
+* CTS-EL
+* DCS
+* DCS-EL
+* REM
+* REM-EL
+#### WORK_AREA
+* HUC
+* REGION
+#### EMPLOYMENT
+* PRIVATE
+* GOVERMENT
+#### PAY_MODE
+* Over-the-counter
+* Salary Deduction
+#### TYPE_OF_DEVELOPMENT
+* PD 957
+* BP 220
+#### PROJECT_TYPE
+* SOCIALIZED
+* ECONOMIC
+#### HOUSING_TYPE
+* CONDOMINIUM
+* DUPLEX
+* ROW / TOWN HOUSE
+* SINGLE ATTACHED
+* SINGLE DETACHED
+* QUADRUPLEX
+#### REPRICING_PERIOD
+* 1 yr
+* 3 yrs
+* 5 yrs
+* 10 yrs
+* 15 yrs
+* 20 yrs
+* 25 yrs
+* 30 yrs
