@@ -16,10 +16,29 @@ enum Computed: string
     case computation_label_2_principal = 'computation label 2 - principal';
     case computation_label_3_principal = 'computation label 3 - principal';
     case computation_label_4_principal = 'computation label 4 - principal';
-    case computation_1_principal = 'computation 1 - principal';
-    case computation_2_principal = 'computation 2 - principal';
-    case computation_3_principal = 'computation 3 - principal';
-    case computation_4_principal = 'computation 4 - principal';
+    case amort_princ_int1 = 'computation 1 - principal';
+    case amort_mrisri1 = 'computation 2 - principal';
+    case amort_nonlife1 = 'computation 3 - principal';
+    case monthly_amort1 = 'computation 4 - principal';
+    //Coborrower 
+    case computation_label_1_coborrower_1 = 'computation label 1 - coborrower 1';
+    case computation_label_2_coborrower_1 = 'computation label 2 - coborrower 1';
+    case computation_label_3_coborrower_1 = 'computation label 3 - coborrower 1';
+    case computation_label_4_coborrower_1 = 'computation label 4 - coborrower 1';
+    case amort_princ_int2 = 'computation 1 - coborrower 1';
+    case amort_mrisri2 = 'computation 2 - coborrower 1';
+    case amort_nonlife2 = 'computation 3 - coborrower 1';
+    case monthly_amort2 = 'computation 4 - coborrower 1';
+    //Coborrower 2
+    case computation_label_1_coborrower_2 = 'computation label 1 - coborrower 2';
+    case computation_label_2_coborrower_2 = 'computation label 2 - coborrower 2';
+    case computation_label_3_coborrower_2 = 'computation label 3 - coborrower 2';
+    case computation_label_4_coborrower_2 = 'computation label 4 - coborrower 2';
+    case amort_princ_int3 = 'computation 1 - coborrower 2';
+    case amort_mrisri3 = 'computation 2 - coborrower 2';
+    case amort_nonlife3 = 'computation 3 - coborrower 2';
+    case monthly_amort3 = 'computation 4 - coborrower 2';
+
     case total_label_1_principal = 'total label 1 - principal';
     case total_label_2_principal = 'total label 2 - principal';
     case total_label_3_principal = 'total label 3 - principal';
@@ -72,7 +91,7 @@ enum Computed: string
     case max_loan = 'max loan';
     case recommended_loan_base = 'recommended loan base';
     public function cell()
-    {
+    { 
         return match ($this) {
             Computed::gmi_principal => env('gmi_principal', 'F37'),
             Computed::gmi_percent_principal => env('gmi_percent_principal', 'G37'),
@@ -86,18 +105,39 @@ enum Computed: string
             Computed::computation_label_2_principal => env('computation _abel_2_principal', 'B101'),
             Computed::computation_label_3_principal => env('computation _label_3_principal', 'B102'),
             Computed::computation_label_4_principal => env('computation _label_4_principal', 'B103'),
-            Computed::computation_1_principal => env('computation 1 - principal', 'G100'),
-            Computed::computation_2_principal => env('computation 2 - principal', 'G101'),
-            Computed::computation_3_principal => env('computation 3 - principal', 'G102'),
-            Computed::computation_4_principal => env('computation 4 - principal', 'G103'),
+            Computed::amort_princ_int1 => env('computation 1 - principal', 'G100'),
+            Computed::amort_mrisri1 => env('computation 2 - principal', 'G101'),
+            Computed::amort_nonlife1 => env('computation 3 - principal', 'G102'),
+            Computed::monthly_amort1 => env('computation 4 - principal', 'G103'),
+            //coborrower 1
+            Computed::computation_label_1_coborrower_1 => env('computation _label_1_principal', 'B105'),
+            Computed::computation_label_2_coborrower_1 => env('computation _abel_2_principal', 'B106'),
+            Computed::computation_label_3_coborrower_1 => env('computation _label_3_principal', 'B107'),
+            Computed::computation_label_4_coborrower_1 => env('computation _label_4_principal', 'B108'),
+            Computed::amort_princ_int2 => env('computation 1 - coborrower 1', 'G105'),
+            Computed::amort_mrisri2 => env('computation 2 - coborrower 1', 'G106'),
+            Computed::amort_nonlife2 => env('computation 3 - coborrower 1', 'G107'),
+            Computed::monthly_amort2 => env('computation 4 - coborrower 1', 'G108'),
+            //coborrower 2
+            Computed::computation_label_1_coborrower_2 => env('computation _label_1_principal', 'B110'),
+            Computed::computation_label_2_coborrower_2 => env('computation _abel_2_principal', 'B111'),
+            Computed::computation_label_3_coborrower_2 => env('computation _label_3_principal', 'B112'),
+            Computed::computation_label_4_coborrower_2 => env('computation _label_4_principal', 'B113'),
+            Computed::amort_princ_int3 => env('computation 1 - principal', 'G110'),
+            Computed::amort_mrisri3 => env('computation 2 - principal', 'G111'),
+            Computed::amort_nonlife3 => env('computation 3 - principal', 'G112'),
+            Computed::monthly_amort3 => env('computation 4 - principal', 'G113'),
+
             Computed::total_label_1_principal => env('total label 1 - principal', 'B115'),
             Computed::total_label_2_principal => env('total label 2 - principal', 'B116'),
             Computed::total_label_3_principal => env('total label 3 - principal', 'B117'),
             Computed::total_label_4_principal => env('total label 4 - principal', 'B118'),
-            Computed::computation_1_total => env('computation 1 - total', 'G100'),
-            Computed::computation_2_total => env('computation 2 - total', 'G101'),
-            Computed::computation_3_total => env('computation 3 - total', 'G102'),
-            Computed::computation_4_total => env('computation 4 - total', 'G103'),
+
+            Computed::computation_1_total => env('computation 1 - total', 'G115'),
+            Computed::computation_2_total => env('computation 2 - total', 'G116'),
+            Computed::computation_3_total => env('computation 3 - total', 'G117'),
+            Computed::computation_4_total => env('computation 4 - total', 'G118'),
+
             Computed::mri_sri => env('MRI/SRI', 'F121'),
             Computed::doc_stamp => env('doc stamp', 'F122'),
             Computed::mri_sri_total_1 => env('MRI/SRI Total 1', 'F123'),

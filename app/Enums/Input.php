@@ -9,7 +9,11 @@ enum Input: string
     case program = 'program';
     case application_date = 'application date';
     case principal_borrower = 'principal borrower';
+    case co_borrower_1 = 'coborrower 1';
+    case co_borrower_2 = 'coborrower 2';
     case birth_date = 'birth date';
+    case birth_date_coborrower_1 = 'birth date - coborrower 1';
+    case birth_date_coborrower_2 = 'birth date - coborrower 2';
     case work_area = 'work area';
     case employment = 'employment';
     case pay_mode = 'pay mode';
@@ -26,8 +30,10 @@ enum Input: string
     case appraised_value_house = 'appraised value - house';
     case desired_loan = 'desired loan';
     case gross_income_principal = 'gross income - principal';
+    case gross_income_coborrower_1 = 'gross income - coborrower 1';
+    case gross_income_coborrower_2 = 'gross income - coborrower 2';
     case repricing_period = 'repricing period';
-    case loan_term = 'loan_term';
+    case loan_period_months = 'loan_period_months';
 
     public function cell(): string
     {
@@ -37,7 +43,11 @@ enum Input: string
             Input::program => env('program', 'C3'),
             Input::application_date => env('application date', 'K2'),
             Input::principal_borrower => env('principal borrower', 'B6'),
+            Input::co_borrower_1 => env('principal borrower', 'B7'),
+            Input::co_borrower_2 => env('principal borrower', 'B8'),
             Input::birth_date => env('birth date', 'F6'),
+            Input::birth_date_coborrower_1 => env('birth_date_coborrower_1', 'F7'),
+            Input::birth_date_coborrower_2 => env('birth_date_coborrower_2', 'F8'),
             Input::work_area => env('work area', 'F10'),
             Input::employment => env('employment', 'F11'),
             Input::pay_mode => env('pay mode', 'F12'),
@@ -54,8 +64,10 @@ enum Input: string
             Input::appraised_value_house => env('appraised value - house', 'F26'),
             Input::desired_loan => env('desired loan', 'F31'),
             Input::gross_income_principal => env('gross income - principal', 'F36'),
+            Input::gross_income_coborrower_1 => env('gross income - coborrower 1', 'F42'),     
+            Input::gross_income_coborrower_2 => env('gross income - coborrower 2', 'F58'),       
             Input::repricing_period => env('repricing period', 'F94'),
-            Input::loan_term => env('loan_term', 'F96'),
+            Input::loan_period_months => env('loan_term', 'F96'),
         };
     }
 
@@ -85,7 +97,7 @@ enum Input: string
             Input::desired_loan => 750000,
             Input::gross_income_principal => 18000,
             Input::repricing_period => '3 yrs',
-            Input::loan_term => 30,
+            Input::loan_period_months => 30
         };
     }
 }

@@ -12,7 +12,11 @@ class InputData extends Data
         string $program,
         string $application_date,
         string $principal_borrower,
+        string $co_borrower_1,
+        string $co_borrower_2,
         string $birth_date,
+        string $birth_date_coborrower_1,
+        string $birth_date_coborrower_2,
         string $work_area,
         string $employment,
         string $pay_mode,
@@ -29,6 +33,8 @@ class InputData extends Data
         float $appraised_value_house,
         float $desired_loan,
         float $gross_income_principal,
+        float $gross_income_coborrower_1,
+        float $gross_income_coborrower_2,
         string $repricing_period,
         int $loan_term
     ) {}

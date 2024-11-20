@@ -30,16 +30,33 @@ class GetHousingLoanEvaluation
         $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($inputFileName);
+
         foreach ($inputs as $i => $value) {
+            if($i == "coborrower 1"){
+                 if($value){
+                 $spreadsheet->getActiveSheet()->setCellValue('N7', TRUE);                
+                 }
+                 else{
+                 $spreadsheet->getActiveSheet()->setCellValue('N7', FALSE);       
+                 }
+            }
+            if($i == "coborrower 2"){
+                 if($value){
+                 $spreadsheet->getActiveSheet()->setCellValue('N8', TRUE);
+                 }else{
+                 $spreadsheet->getActiveSheet()->setCellValue('N8', FALSE);  }
+             
+            }
             $cell = Input::tryFrom($i)->cell();
             if ($cell)
                 $spreadsheet->getActiveSheet()->setCellValue($cell, $value);
-        }
 
+        }
         Calculation::getInstance($spreadsheet)->clearCalculationCache();
 
         $computed = [];
         foreach(Computed::cases() as $case) {
+
             $cellValue = match ($case) {
                 Computed::maximum_loanable_amount_principal,
                 Computed::net_loanable_amount_principal,
@@ -48,22 +65,49 @@ class GetHousingLoanEvaluation
                 Computed::computation_label_2_principal,
                 Computed::computation_label_3_principal,
                 Computed::computation_label_4_principal,
+                // Computed::amort_princ_int1,
+                // Computed::amort_mrisri1,
+                // Computed::amort_nonlife1,
+                // Computed::monthly_amort1,
+                //Cobuyer 1
+                Computed::computation_label_1_coborrower_1,
+                Computed::computation_label_2_coborrower_1,
+                Computed::computation_label_3_coborrower_1,
+                Computed::computation_label_4_coborrower_1,
+                // Computed::amort_princ_int2,
+                // Computed::amort_mrisri2,
+                // Computed::amort_nonlife2,
+                // Computed::monthly_amort2,
+                //Cobuyer 2
+                Computed::computation_label_1_coborrower_2,
+                Computed::computation_label_2_coborrower_2,
+                Computed::computation_label_3_coborrower_2,
+                Computed::computation_label_4_coborrower_2,
+                // Computed::amort_princ_int3,
+                // Computed::amort_mrisri3,
+                Computed::amort_nonlife3,
+                // Computed::monthly_amort3,
+
                 Computed::total_label_1_principal,
                 Computed::total_label_2_principal,
                 Computed::total_label_3_principal,
                 Computed::total_label_4_principal,
                 Computed::building_value,
-                Computed::zone, Computed::tariff,
+                Computed::zone,
+                Computed::tariff,
                 Computed::doc_stamp_percent_fire_insurance,
                 Computed::fire_service_tax_percent,
                 Computed::value_added_tax_percent_fire_insurance,
                 Computed::lgu_tax_percent_fire_insurance,
-                Computed::selling_price, Computed::price_ceiling, Computed::appraised_value, Computed::desired_loan, Computed::max_loan => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
+                Computed::selling_price, 
+                Computed::price_ceiling, 
+                Computed::appraised_value, 
+                Computed::desired_loan, 
+                Computed::max_loan => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
                 default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue()
             };
             Arr::set($computed, $case->name, $cellValue);
         }
-
         $gray_cells = [];
         foreach(Input::cases() as $case) {
             $cellValue = match ($case) {
@@ -72,6 +116,7 @@ class GetHousingLoanEvaluation
             };
             Arr::set($gray_cells, $case->name, $cellValue);
         }
+
 
         return [
             'inputs' => $gray_cells,

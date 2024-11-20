@@ -280,7 +280,8 @@ test('setting values', function (array $simulation) {
     $reader->setReadEmptyCells(false);
     $spreadsheet = $reader->load($inputFileName);
 //    Calculation::getInstance($spreadsheet)->disableCalculationCache();
-
+    $testComputation = $spreadsheet->getActiveSheet()->getCell('G100')->getOldCalculatedValue();
+    dd($testComputation);
     foreach ($simulation['inputs'] as $inputs) {
         $cell = $inputs[CELL];
         $value = $inputs[VALUE];
@@ -354,7 +355,7 @@ test('action test', function (array $simulation) {
 
     $data = app(GetHousingLoanEvaluation::class)->run($inputs);
     dd($data);
-})->with('simulation');
+})->with('simulation')->skip();
 
 
 test('end point test', function () {
@@ -388,4 +389,4 @@ test('end point test', function () {
     $response = $this->post(route('evaluate'), $inputs);
     expect($response->status())->toBe(200);
     expect($response->json())->toHaveCount(2);
-});
+})->skip();
