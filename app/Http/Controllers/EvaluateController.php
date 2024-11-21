@@ -38,8 +38,7 @@ class EvaluateController extends Controller
         }
     }
     public function saveES($ES){
-        $fileName = $ES['Filename']. now()->format('Ymd_His') . '.xlsx';
-        $savePath = storage_path('app/public/' . $fileName);
+        $savePath = storage_path('app/public/' . $ES['Filename']);
         $writer = new Xlsx($ES['Spreadsheet']);
         $writer->save($savePath);
     }
