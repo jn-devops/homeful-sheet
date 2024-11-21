@@ -2,9 +2,11 @@
 
 namespace App\Actions;
 
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\IReader;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Lorisleiva\Actions\Concerns\AsAction;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Enums\{Computed, Input};
@@ -118,10 +120,17 @@ class GetHousingLoanEvaluation
             Arr::set($gray_cells, $case->value, $cellValue);
         }
 
-
+        //save excel
+        $writer = new Xlsx($spreadsheet);
+        // dd($writer);
+        $fileName =  storage_path($gray_cells['PRINCIPAL_BORROWER'] . now()->format('Ymd_His') . '.xlsx');
+        // dd($filename);
+        $writer->save($fileName);
+        // dd($save_response);
         return [
             'inputs' => $gray_cells,
-            'computed' => $computed
+            'computed' => $computed,
+            'file'  => config('app.url') . Storage::url($fileName)
         ];
     }
 }
