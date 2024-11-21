@@ -121,18 +121,14 @@ class GetHousingLoanEvaluation
         }
 
         //save excel
-        $writer = new Xlsx($spreadsheet);
-        // dd($writer);
+        
         $fileName =  $gray_cells['PRINCIPAL_BORROWER'] .'_'. now()->format('Ymd_His') . '.xlsx';
-        // $savePath = Storage::path($fileName);
-        // $writer->save($savePath);
-        // dd($save_response);
         $savePath = storage_path('app/public/' . $fileName);
-        $writer->save($savePath);
-        // Storage::putFileAs('public', new File($savePath), $fileName);
-
-
+        // $writer = new Xlsx($spreadsheet);
+        // $writer->save($savePath);
+       
         return [
+
             'inputs' => $gray_cells,
             'computed' => $computed,
             // 'file'  => config('app.url') . Storage::url($fileName)
