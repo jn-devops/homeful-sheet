@@ -128,11 +128,16 @@ class GetHousingLoanEvaluation
         // $writer->save($savePath);
        
         return [
-
-            'inputs' => $gray_cells,
-            'computed' => $computed,
-            // 'file'  => config('app.url') . Storage::url($fileName)
-            'file' => config('app.url') . '/storage/' . $fileName
+            'Value' => [
+                'inputs' => $gray_cells,
+                'computed' => $computed,
+                // 'file'  => config('app.url') . Storage::url($fileName)
+                'file' => config('app.url') . '/demoES.xlsx'//? . $fileName
+            ],
+            'ES' =>[
+                'Spreadsheet' => $spreadsheet,
+                'Filename'    => $fileName
+            ] 
         ];
     }
 }

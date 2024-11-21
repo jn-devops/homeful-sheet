@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\GetHousingLoanEvaluation;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class EvaluateController extends Controller
 {
@@ -13,8 +14,11 @@ class EvaluateController extends Controller
         // $es = GetHousingLoanEvaluation::run($request->all());
         $tempfilePath = $this->tempES("Create");
         $es = GetHousingLoanEvaluation::run($request->all(), $tempfilePath);
+        // dd($es['Spreadsheet']);
+        $this->saveES($es['ES']);
         $this->tempES("Delete",$tempfilePath);
-        return $es;
+
+        return $es['Value'];
     }
 
     public function tempES(String $method,String $path = Null)
@@ -32,5 +36,11 @@ class EvaluateController extends Controller
             File::delete($path);
         }            
         }
+    }
+    public function saveES($ES){
+        $fileName = $ES['Filename']. now()->format('Ymd_His') . '.xlsx';
+        $savePath = storage_path('app/public/' . $fileName);
+        $writer = new Xlsx($ES['Spreadsheet']);
+        $writer->save($savePath);
     }
 }
