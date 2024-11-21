@@ -132,7 +132,8 @@ class GetHousingLoanEvaluation
                 'inputs' => $gray_cells,
                 'computed' => $computed,
                 // 'file'  => config('app.url') . Storage::url($fileName)
-                'file' => config('app.url') . '/demoES.xlsx'//? . $fileName
+                // 'file' => config('app.url') . '/storage/demo_ES.xlsx'//? . $fileName
+                'file'  => config('app.url') . '/storage/' . $fileName
             ],
             'ES' =>[
                 'Spreadsheet' => $spreadsheet,
