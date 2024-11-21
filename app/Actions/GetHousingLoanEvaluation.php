@@ -129,7 +129,7 @@ class GetHousingLoanEvaluation
         // dd($save_response);
         $savePath = storage_path('app/public/' . $fileName);
         $writer->save($savePath);
-        Storage::putFileAs('public', new File($savePath), $fileName);
+        // Storage::putFileAs('public', new File($savePath), $fileName);
 
 
         return [
