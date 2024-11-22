@@ -29,10 +29,11 @@ class GetHousingLoanEvaluation
         // $inputFileName = docs_path("SHDG - Evaluation sheet V1-0-2 - 240819.xlsx");
         $inputFileName = $tempfilePath;
         $reader = IOFactory::createReader($inputFileType);
-        $reader->setReadDataOnly(true);
+        $reader->setReadDataOnly(false);
         $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($inputFileName);
+        Calculation::getInstance($spreadsheet)->clearCalculationCache();
 
         foreach ($inputs as $i => $value) {
             if($i == "COBORROWER_1"){
@@ -55,8 +56,6 @@ class GetHousingLoanEvaluation
                 $spreadsheet->getActiveSheet()->setCellValue($cell, $value);
 
         }
-        Calculation::getInstance($spreadsheet)->clearCalculationCache();
-
         $computed = [];
         foreach(Computed::cases() as $case) {
 
@@ -121,8 +120,8 @@ class GetHousingLoanEvaluation
         }
 
         //save excel
-        
-        $fileName = $gray_cells['PRINCIPAL_BORROWER'] .'_'. now()->format('Ymd_His') . '.xlsx';
+        $buyerStr = str_replace(' ', '_' , $gray_cells['PRINCIPAL_BORROWER'] );
+        $fileName = $buyerStr .'_'. now()->format('Ymd_His') . '.xlsx';
         $savePath = storage_path('app/public/' . $fileName);
         // $writer = new Xlsx($spreadsheet);
         // $writer->save($savePath);
