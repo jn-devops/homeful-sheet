@@ -67,10 +67,10 @@ class GetHousingLoanEvaluation
                 Computed::computation_label_2_principal,
                 Computed::computation_label_3_principal,
                 Computed::computation_label_4_principal,
-                // Computed::amort_princ_int1,
-                // Computed::amort_mrisri1,
-                // Computed::amort_nonlife1,
-                // Computed::monthly_amort1,
+                Computed::amort_princ_int1,
+                Computed::amort_mrisri1,
+                Computed::amort_nonlife1,
+                Computed::monthly_amort1,
                 //Cobuyer 1
                 Computed::computation_label_1_coborrower_1,
                 Computed::computation_label_2_coborrower_1,
@@ -106,7 +106,9 @@ class GetHousingLoanEvaluation
                 Computed::appraised_value,
                 Computed::desired_loan,
                 Computed::max_loan => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
-                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue()
+                // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue()
+                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
+                
             };
             Arr::set($computed, $case->value, $cellValue);
         }
