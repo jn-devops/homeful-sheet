@@ -29,7 +29,7 @@ class GetHousingLoanEvaluation
         // $inputFileName = docs_path("SHDG - Evaluation sheet V1-0-2 - 240819.xlsx");
         $inputFileName = $tempfilePath;
         $reader = IOFactory::createReader($inputFileType);
-        $reader->setReadDataOnly(true);
+        $reader->setReadDataOnly(false);
         $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($inputFileName);
