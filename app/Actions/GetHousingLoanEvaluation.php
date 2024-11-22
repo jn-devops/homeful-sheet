@@ -29,7 +29,7 @@ class GetHousingLoanEvaluation
         // $inputFileName = docs_path("SHDG - Evaluation sheet V1-0-2 - 240819.xlsx");
         $inputFileName = $tempfilePath;
         $reader = IOFactory::createReader($inputFileType);
-        $reader->setReadDataOnly(false);
+        $reader->setReadDataOnly(true);
         $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($inputFileName);
@@ -122,7 +122,7 @@ class GetHousingLoanEvaluation
 
         //save excel
         
-        $fileName =  $gray_cells['PRINCIPAL_BORROWER'] .'_'. now()->format('Ymd_His') . '.xlsx';
+        $fileName = $gray_cells['PRINCIPAL_BORROWER'] .'_'. now()->format('Ymd_His') . '.xlsx';
         $savePath = storage_path('app/public/' . $fileName);
         // $writer = new Xlsx($spreadsheet);
         // $writer->save($savePath);
@@ -132,8 +132,8 @@ class GetHousingLoanEvaluation
                 'inputs' => $gray_cells,
                 'computed' => $computed,
                 // 'file'  => config('app.url') . Storage::url($fileName)
-                  // 'file'  => config('app.url') . '/storage/' . $fileName
-                'file' => config('app.url') . '/storage/demo_ES.xlsx'//? . $fileName
+                  'file'  => config('app.url') . '/storage/' . $fileName
+                // 'file' => config('app.url') . '/storage/demo_ES.xlsx'//? . $fileName
               
             ],
             'ES' =>[
