@@ -15,7 +15,7 @@
 * REGION
 #### EMPLOYMENT
 * PRIVATE
-* GOVERMENT
+* GOVERNMENT
 #### PAY_MODE
 * Over-the-counter
 * Salary Deduction
