@@ -63,6 +63,7 @@ class GetHousingLoanEvaluation
                 Computed::maximum_loanable_amount_principal,
                 Computed::net_loanable_amount_principal,
                 Computed::net_loanable_amount_total,
+                Computed::annual_interest_rate,
                 Computed::computation_label_1_principal,
                 Computed::computation_label_2_principal,
                 Computed::computation_label_3_principal,
