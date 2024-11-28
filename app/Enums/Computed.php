@@ -13,6 +13,7 @@ enum Computed: string
     case net_loanable_amount_principal = 'NET_LOANABLE_AMOUNT_PRINCIPAL';
     case net_loanable_amount_total = 'NET_LOANABLE_AMOUNT_TOTAL';
     case annual_interest_rate = 'ANNUAL_INTEREST_RATE';
+    case computed_installment_year = 'COMPUTED_INSTALLMENT_YEAR';
     case computation_label_1_principal = 'COMPUTATION_LABEL_1_PRINCIPAL';
     case computation_label_2_principal = 'COMPUTATION_LABEL_2_PRINCIPAL';
     case computation_label_3_principal = 'COMPUTATION_LABEL_3_PRINCIPAL';
@@ -101,7 +102,8 @@ enum Computed: string
             Computed::maximum_loanable_amount_principal => env('maximum_loanable_amount_principal', 'F79'),
             Computed::net_loanable_amount_principal => env('net_loanable_amount_principal', 'I79'),
             Computed::net_loanable_amount_total => env('net_loanable_amount_total', 'I82'),
-            Computed::annual_interest_rate => env('annual_interest_ratenu', 'G99'),
+            Computed::annual_interest_rate => env('annual_interest_ratenu', 'F92'),
+            Computed::computed_installment_year => env('computed_installment_year','G99'),
             Computed::computation_label_1_principal => env('computation_label_1_principal', 'B100'),
             Computed::computation_label_2_principal => env('computation_abel_2_principal', 'B101'),
             Computed::computation_label_3_principal => env('computation_label_3_principal', 'B102'),
