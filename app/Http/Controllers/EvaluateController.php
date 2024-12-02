@@ -10,14 +10,14 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class EvaluateController extends Controller
 {
     public function __invoke(Request $request)
-    {
-        // $es = GetHousingLoanEvaluation::run($request->all());
-        $tempfilePath = $this->tempES("Create");
-        $es = GetHousingLoanEvaluation::run($request->all(), $tempfilePath);
-        // dd($es['Spreadsheet']);
-        $this->saveES($es['ES']);
-        $this->tempES("Delete",$tempfilePath);
+    {   
 
+        $tempfilePath = $this->tempES("Create");
+        // $es = GetHousingLoanEvaluation::run($request->all());
+        // $es = GetHousingLoanEvaluation::run($request->all(), $tempfilePath);
+        $es = GetHousingLoanEvaluation::run($request->except(['valueOnly']), $tempfilePath);
+        $request->valueOnly!="true"?$this->saveES($es['ES']):$es['Value']['file']=Null;
+        $this->tempES("Delete",$tempfilePath);
         return $es['Value'];
     }
 
