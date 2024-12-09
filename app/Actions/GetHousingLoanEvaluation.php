@@ -33,7 +33,8 @@ class GetHousingLoanEvaluation
         $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($inputFileName);
-        Calculation::getInstance($spreadsheet)->clearCalculationCache();
+        // Calculation::getInstance($spreadsheet)->clearCalculationCache();
+        Calculation::getInstance($spreadsheet)->disableCalculationCache();//disable computation cache
 
         foreach ($inputs as $i => $value) {
             if($i == "COBORROWER_1"){
