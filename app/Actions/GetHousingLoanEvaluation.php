@@ -33,8 +33,9 @@ class GetHousingLoanEvaluation
         $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($inputFileName);
-        // Calculation::getInstance($spreadsheet)->clearCalculationCache();
-        Calculation::getInstance($spreadsheet)->disableCalculationCache();//disable computation cache
+        Calculation::getInstance($spreadsheet)->clearCalculationCache();
+        // Calculation::getInstance($spreadsheet)->disableCalculationCache();
+        
 
         foreach ($inputs as $i => $value) {
             if($i == "COBORROWER_1"){
@@ -56,6 +57,14 @@ class GetHousingLoanEvaluation
             if ($cell)
                 $spreadsheet->getActiveSheet()->setCellValue($cell, $value);
 
+        }
+       $gray_cells = [];
+        foreach(Input::cases() as $case) {
+            $cellValue = match ($case) {
+                Input::appraised_value_lot => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue(),
+                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
+            };
+            Arr::set($gray_cells, $case->value, $cellValue);
         }
         $computed = [];
         foreach(Computed::cases() as $case) {
@@ -115,14 +124,7 @@ class GetHousingLoanEvaluation
             };
             Arr::set($computed, $case->value, $cellValue);
         }
-        $gray_cells = [];
-        foreach(Input::cases() as $case) {
-            $cellValue = match ($case) {
-                Input::appraised_value_lot => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue(),
-                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
-            };
-            Arr::set($gray_cells, $case->value, $cellValue);
-        }
+
 
         //save excel
         $buyerStr = str_replace(' ', '_' , $gray_cells['PRINCIPAL_BORROWER'] );
