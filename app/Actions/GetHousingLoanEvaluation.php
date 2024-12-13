@@ -58,7 +58,6 @@ class GetHousingLoanEvaluation
             $cell = Input::tryFrom($i)->cell();
             if ($cell)
                 $spreadsheet->getActiveSheet()->setCellValue($cell, $value);
-                echo $cell;
         }
        $gray_cells = [];
         foreach(Input::cases() as $case) {
