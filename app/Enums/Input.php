@@ -65,7 +65,7 @@ enum Input: string
             Input::desired_loan => env('desired_loan', 'F31'),
             Input::gross_income_principal => env('gross_income - principal', 'F36'),
             Input::gross_income_coborrower_1 => env('gross_income_coborrower_1', 'F42'),
-            Input::gross_income_coborrower_2 => env('gross_income_coborrower_2', 'F58'),
+            Input::gross_income_coborrower_2 => env('gross_income_coborrower_2', 'F48'),
             Input::repricing_period => env('repricing_period', 'F94'),
             Input::loan_period_years => env('loan_term', 'F96'),
         };
