@@ -119,7 +119,8 @@ class GetHousingLoanEvaluation
                 Computed::price_ceiling,
                 Computed::appraised_value,
                 Computed::desired_loan,
-                Computed::max_loan => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
+                Computed::max_loan,
+                Computed::recommended_loan_base => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
                 default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue()
                 // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
                 
