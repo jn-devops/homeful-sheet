@@ -33,7 +33,9 @@ class GetHousingLoanEvaluation
         $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($inputFileName);
-        Calculation::getInstance($spreadsheet)->clearCalculationCache();
+        
+        // Calculation::getInstance($spreadsheet)->clearCalculationCache();
+        Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 100;
         // Calculation::getInstance($spreadsheet)->disableCalculationCache();
         
 
@@ -79,28 +81,28 @@ class GetHousingLoanEvaluation
                 Computed::computation_label_2_principal,
                 Computed::computation_label_3_principal,
                 Computed::computation_label_4_principal,
-                Computed::amort_princ_int1,
-                Computed::amort_mrisri1,
-                Computed::amort_nonlife1,
-                Computed::monthly_amort1,
+                // Computed::amort_princ_int1,
+                // Computed::amort_mrisri1,
+                // Computed::amort_nonlife1,
+                // Computed::monthly_amort1,
                 //Cobuyer 1
                 Computed::computation_label_1_coborrower_1,
                 Computed::computation_label_2_coborrower_1,
                 Computed::computation_label_3_coborrower_1,
                 Computed::computation_label_4_coborrower_1,
-                Computed::amort_princ_int2,
-                Computed::amort_mrisri2,
-                Computed::amort_nonlife2,
-                Computed::monthly_amort2,
+                // Computed::amort_princ_int2,
+                // Computed::amort_mrisri2,
+                // Computed::amort_nonlife2,
+                // Computed::monthly_amort2,
                 //Cobuyer 2
                 Computed::computation_label_1_coborrower_2,
                 Computed::computation_label_2_coborrower_2,
                 Computed::computation_label_3_coborrower_2,
                 Computed::computation_label_4_coborrower_2,
-                Computed::amort_princ_int3,
-                Computed::amort_mrisri3,
-                Computed::amort_nonlife3,
-                Computed::monthly_amort3,
+                // Computed::amort_princ_int3,
+                // Computed::amort_mrisri3,
+                // Computed::amort_nonlife3,
+                // Computed::monthly_amort3,
 
                 Computed::total_label_1_principal,
                 Computed::total_label_2_principal,
@@ -118,8 +120,8 @@ class GetHousingLoanEvaluation
                 Computed::appraised_value,
                 Computed::desired_loan,
                 Computed::max_loan => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
-                // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue()
-                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
+                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue()
+                // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
                 
             };
             Arr::set($computed, $case->value, $cellValue);
@@ -130,9 +132,6 @@ class GetHousingLoanEvaluation
         $buyerStr = str_replace(' ', '_' , $gray_cells['PRINCIPAL_BORROWER'] );
         $fileName = $buyerStr .'_'. now()->format('Ymd_His') . '.xlsx';
         $savePath = storage_path('app/public/' . $fileName);
-        // $writer = new Xlsx($spreadsheet);
-        // $writer->save($savePath);
-       
         return [
             'Value' => [
                 'inputs' => $gray_cells,
