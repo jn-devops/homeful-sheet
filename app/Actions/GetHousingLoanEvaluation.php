@@ -58,13 +58,14 @@ class GetHousingLoanEvaluation
             $cell = Input::tryFrom($i)->cell();
             if ($cell)
                 $spreadsheet->getActiveSheet()->setCellValue($cell, $value);
-
+                echo $cell;
         }
        $gray_cells = [];
         foreach(Input::cases() as $case) {
             $cellValue = match ($case) {
                 Input::appraised_value_lot => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue(),
-                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
+                    // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
+                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getValue()
             };
             Arr::set($gray_cells, $case->value, $cellValue);
         }
@@ -81,10 +82,10 @@ class GetHousingLoanEvaluation
                 Computed::computation_label_2_principal,
                 Computed::computation_label_3_principal,
                 Computed::computation_label_4_principal,
-                // Computed::amort_princ_int1,
-                // Computed::amort_mrisri1,
-                // Computed::amort_nonlife1,
-                // Computed::monthly_amort1,
+                Computed::amort_princ_int1,
+                Computed::amort_mrisri1,
+                Computed::amort_nonlife1,
+                Computed::monthly_amort1,
                 //Cobuyer 1
                 Computed::computation_label_1_coborrower_1,
                 Computed::computation_label_2_coborrower_1,
@@ -129,6 +130,7 @@ class GetHousingLoanEvaluation
 
 
         //save excel
+        // dd($spreadsheet->getActiveSheet()->getCell("B7")->());
         $buyerStr = str_replace(' ', '_' , $gray_cells['PRINCIPAL_BORROWER'] );
         $fileName = $buyerStr .'_'. now()->format('Ymd_His') . '.xlsx';
         $savePath = storage_path('app/public/' . $fileName);

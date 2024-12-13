@@ -16,6 +16,7 @@ class EvaluateController extends Controller
         // $es = GetHousingLoanEvaluation::run($request->all());
         // $es = GetHousingLoanEvaluation::run($request->all(), $tempfilePath);
         $es = GetHousingLoanEvaluation::run($request->except(['valueOnly']), $tempfilePath);
+        // dd($es['ES']);
         $request->valueOnly!="true"?$this->saveES($es['ES']):$es['Value']['file']=Null;
         $this->tempES("Delete",$tempfilePath);
         return $es['Value'];
@@ -25,7 +26,7 @@ class EvaluateController extends Controller
     {
         if($method=="Create")
         {
-        $sourcePath = docs_path("SHDG - Evaluation sheet V1-0-2 - 240819.xlsx");
+        $sourcePath = docs_path("SHDG - Evaluation sheet V1-0-2 - 240819_v2.xlsx");
         $timestamp = now()->format('Ymd_His');
         $tempfilePath = docs_path("ES_Temp".$timestamp.".xlsx");
         File::copy($sourcePath, $tempfilePath);
