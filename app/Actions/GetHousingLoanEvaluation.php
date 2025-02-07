@@ -35,7 +35,7 @@ class GetHousingLoanEvaluation
         $spreadsheet = $reader->load($inputFileName);
         
         Calculation::getInstance($spreadsheet)->clearCalculationCache();
-        // Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 100;
+        Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 100;
         // Calculation::getInstance($spreadsheet)->disableCalculationCache();
         
 
@@ -62,7 +62,7 @@ class GetHousingLoanEvaluation
        $gray_cells = [];
         foreach(Input::cases() as $case) {
             $cellValue = match ($case) {
-                Input::appraised_value_lot => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue(),
+                Input::appraised_value_lot => $spreadsheet->getActiveSheet()->getCell($case->cell())->getValue(),
                     // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
                 default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getValue()
             };
@@ -121,7 +121,7 @@ class GetHousingLoanEvaluation
                 Computed::desired_loan,
                 Computed::max_loan,
                 Computed::recommended_loan_base => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
-                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getOldCalculatedValue()
+                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
                 // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
                 
             };
