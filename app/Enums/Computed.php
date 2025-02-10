@@ -182,6 +182,7 @@ enum Computed: string
             Computed::appraised_value => env('APPRAISED_VALUE', 'I27'),
             Computed::desired_loan => env('DESIRED_LOAN', 'I31'),
             Computed::gross_income => env('GROSS_INCOME', 'I51'),
+            // Computed::gross_income => 'I51',
             Computed::max_loan => env('MAX_LOAN', 'I75'),
             Computed::recommended_loan_base => env('RECOMMENDED_LOAN_BASE', 'K86'),
         };

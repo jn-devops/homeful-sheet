@@ -33,11 +33,10 @@ class GetHousingLoanEvaluation
         $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($inputFileName);
-        
+
         Calculation::getInstance($spreadsheet)->clearCalculationCache();
-        Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 100;
+        Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 1;
         // Calculation::getInstance($spreadsheet)->disableCalculationCache();
-        
 
         foreach ($inputs as $i => $value) {
             if($i == "COBORROWER_1"){
@@ -63,14 +62,22 @@ class GetHousingLoanEvaluation
         foreach(Input::cases() as $case) {
             $cellValue = match ($case) {
                 Input::appraised_value_lot => $spreadsheet->getActiveSheet()->getCell($case->cell())->getValue(),
-                    // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
+                // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
                 default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getValue()
             };
             Arr::set($gray_cells, $case->value, $cellValue);
         }
-        $computed = [];
-        foreach(Computed::cases() as $case) {
 
+           
+
+        for ($i = 0; $i < 100; $i++) {
+                Calculation::getInstance($spreadsheet)->clearCalculationCache();
+                $spreadsheet->getActiveSheet()->getCell('I51')->getCalculatedValue(); ;
+        };
+
+        // $spreadsheet->getActiveSheet();
+        // $computed = [];
+        foreach(Computed::cases() as $case) {
             $cellValue = match ($case) {
                 Computed::maximum_loanable_amount_principal,
                 Computed::net_loanable_amount_principal,
@@ -120,15 +127,16 @@ class GetHousingLoanEvaluation
                 Computed::appraised_value,
                 Computed::desired_loan,
                 Computed::max_loan,
-                Computed::recommended_loan_base => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
-                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
+                Computed::gross_income,
+                Computed::recommended_loan_base => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(true),
+                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(true)
                 // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
                 
             };
             Arr::set($computed, $case->value, $cellValue);
         }
 
-
+        // dd($computed);
         //save excel
         // dd($spreadsheet->getActiveSheet()->getCell("B7")->());
         $buyerStr = str_replace(' ', '_' , $gray_cells['PRINCIPAL_BORROWER'] );
