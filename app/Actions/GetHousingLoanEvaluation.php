@@ -69,14 +69,14 @@ class GetHousingLoanEvaluation
         }
 
            
-
+        if( $spreadsheet->getActiveSheet()->getCell('N7')->getValue()){
         for ($i = 0; $i < 100; $i++) {
                 Calculation::getInstance($spreadsheet)->clearCalculationCache();
                 $spreadsheet->getActiveSheet()->getCell('I51')->getCalculatedValue(); ;
         };
-
+    };  
         // $spreadsheet->getActiveSheet();
-        // $computed = [];
+        $computed = [];
         foreach(Computed::cases() as $case) {
             $cellValue = match ($case) {
                 Computed::maximum_loanable_amount_principal,
@@ -128,8 +128,8 @@ class GetHousingLoanEvaluation
                 Computed::desired_loan,
                 Computed::max_loan,
                 Computed::gross_income,
-                Computed::recommended_loan_base => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(true),
-                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(true)
+                Computed::recommended_loan_base => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue(),
+                default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
                 // default => $spreadsheet->getActiveSheet()->getCell($case->cell())->getCalculatedValue()
                 
             };
