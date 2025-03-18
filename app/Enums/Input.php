@@ -34,6 +34,13 @@ enum Input: string
     case gross_income_coborrower_2 = 'GROSS_INCOME_COBORROWER_2';
     case repricing_period = 'REPRICING_PERIOD';
     case loan_period_years = 'LOAN_PERIOD_YEARS';
+    //added existing loan
+    case borrower_existing_loan = "BORROWER_EXISTING_LOAN";
+    case borrower_existing_loan_ma = "BORROWER_EXISTING_LOAN_MA";
+    case coborrower1_existing_loan = "COBORROWER1_EXISTING_LOAN";
+    case coborrower1_existing_loan_ma = "COBORROWER1_EXISTING_LOAN_MA";
+    case coborrower2_existing_loan = "COBORROWER2_EXISTING_LOAN";
+    case coborrower2_existing_loan_ma = "COBORROWER2_EXISTING_LOAN_MA";
 
     public function cell(): string
     {
@@ -68,6 +75,13 @@ enum Input: string
             Input::gross_income_coborrower_2 => env('gross_income_coborrower_2', 'F48'),
             Input::repricing_period => env('repricing_period', 'F94'),
             Input::loan_period_years => env('loan_term', 'F96'),
+            //added existing loan
+            Input::borrower_existing_loan => env('borrower_existing_loan','G79'),
+            Input::borrower_existing_loan_ma => env('borrower_existing_loan_ma','K79'),
+            Input::coborrower1_existing_loan => env('coborrower1_existing_loan','G80'),
+            Input::coborrower1_existing_loan_ma => env('coborrower1_existing_loan_ma','K80'),
+            Input::coborrower2_existing_loan => env('coborrower2_existing_loan','G81'),
+            Input::coborrower2_existing_loan_ma => env('coborrower2_existing_loan_ma','K81')
         };
     }
 
@@ -103,7 +117,14 @@ enum Input: string
             Input::birth_date_coborrower_1 => null,
             Input::birth_date_coborrower_2 => null,
             Input::gross_income_coborrower_1 => null,
-            Input::gross_income_coborrower_2 => null
+            Input::gross_income_coborrower_2 => null,
+            //added existing loan
+            Input::borrower_existing_loan => 0,
+            Input::borrower_existing_loan_ma => 0,
+            Input::coborrower1_existing_loan => 0,
+            Input::coborrower1_existing_loan_ma => 0,
+            Input::coborrower2_existing_loan => 0,
+            Input::coborrower2_existing_loan_ma => 0 
         };
     }
 }
