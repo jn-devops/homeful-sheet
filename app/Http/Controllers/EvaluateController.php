@@ -26,7 +26,8 @@ class EvaluateController extends Controller
     {
         if($method=="Create")
         {
-        $sourcePath = docs_path("SHDG - Evaluation sheet V1-0-2 - 240819_v2.xlsx");
+        // $sourcePath = docs_path("SHDG - Evaluation sheet V1-0-2 - 240819_v2.xlsx");
+        $sourcePath = docs_path("SHDG - Evaluation sheet V1-0-2.xlsx");
         $timestamp = now()->format('Ymd_His');
         $tempfilePath = docs_path("ES_Temp".$timestamp.".xlsx");
         File::copy($sourcePath, $tempfilePath);
