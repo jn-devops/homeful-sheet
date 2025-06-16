@@ -11,3 +11,8 @@ Route::get('/537/{shortUrl}', [LinkController::class, 'show'])->name('link.show'
 
 Route::get('document', [\App\Http\Controllers\DocumentController::class, 'preview'])
     ->name('document');
+
+Route::get('/upload', function () {
+        return view('uploadfile');
+    });
+    

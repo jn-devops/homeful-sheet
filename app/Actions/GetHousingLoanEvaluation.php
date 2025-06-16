@@ -26,6 +26,7 @@ class GetHousingLoanEvaluation
     public function handle(array $inputs, string $tempfilePath): array
     {
         $inputFileType = 'Xlsx';
+        // dd($tempfilePath."-test");
         // $inputFileName = docs_path("SHDG - Evaluation sheet V1-0-2 - 240819.xlsx");
         $inputFileName = $tempfilePath;
         $reader = IOFactory::createReader($inputFileType);
@@ -33,7 +34,7 @@ class GetHousingLoanEvaluation
         $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($inputFileName);
-
+        // dd($spreadsheet);
         Calculation::getInstance($spreadsheet)->clearCalculationCache();
         Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 1;
         // Calculation::getInstance($spreadsheet)->disableCalculationCache();
@@ -54,10 +55,15 @@ class GetHousingLoanEvaluation
                  $spreadsheet->getActiveSheet()->setCellValue('N8', FALSE);  }
 
             }
-            $cell = Input::tryFrom($i)->cell();
-            if ($cell)
+            $enumCase = Input::tryFrom($i);
+            if ($enumCase) {
+                $cell = $enumCase->cell();
                 $spreadsheet->getActiveSheet()->setCellValue($cell, $value);
-        }
+            }
+            // $cell = Input::tryFrom($i)->cell();
+            // if ($cell)
+            //     $spreadsheet->getActiveSheet()->setCellValue($cell, $value);
+            }
        $gray_cells = [];
         foreach(Input::cases() as $case) {
             $cellValue = match ($case) {
@@ -71,7 +77,7 @@ class GetHousingLoanEvaluation
            
         if( $spreadsheet->getActiveSheet()->getCell('N7')->getValue()){
         for ($i = 0; $i < 100; $i++) {
-                Calculation::getInstance($spreadsheet)->clearCalculationCache();
+                // Calculation::getInstance($spreadsheet)->clearCalculationCache();
                 $spreadsheet->getActiveSheet()->getCell('I51')->getCalculatedValue(); ;
         };
     };  
