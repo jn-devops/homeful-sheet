@@ -26,12 +26,13 @@ class GetHousingLoanEvaluation
     public function handle(array $inputs, string $tempfilePath): array
     {
         $inputFileType = 'Xlsx';
+        // dd($tempfilePath);
         // $inputFileName = docs_path("SHDG - Evaluation sheet V1-0-2 - 240819.xlsx");
         $inputFileName = $tempfilePath;
         $reader = IOFactory::createReader($inputFileType);
 
         $reader->setReadDataOnly(false);
-        $reader->setLoadSheetsOnly(["EvalSheet"]);
+        $reader->setLoadSheetsOnly(["Sheet1"]);
         $reader->setReadEmptyCells(false);
         // dd($reader->load($inputFileName));
         $spreadsheet = $reader->load($inputFileName);

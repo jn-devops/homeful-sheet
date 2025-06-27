@@ -30,11 +30,12 @@
         {{ session('success') }}
     </div>
     @endif
+    @if(session('warning'))
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <!-- {{ session('warning') }} -->
-      test
+    {{ session('warning') }}
     <button type="button" class="btn btn-close fs-6" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    @endif
     <div class="mb-3">
         <label class="form-label">Name</label>
         <input type="text" name="Name" class="form-control" value="{{ $isEdit ? $editDocument->name : '' }}" required>
