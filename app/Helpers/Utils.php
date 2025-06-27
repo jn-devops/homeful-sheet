@@ -3,7 +3,7 @@
 use Illuminate\Support\{Arr, Facades\File, Str};
 
 if (!function_exists('docs_path')) {
-    function docs_path(string $path = null): string {
+    function docs_path(string $path): string {
         $docs_path = base_path('resources/docs');
 
         return $docs_path . ($path ? '/' . $path : '');
