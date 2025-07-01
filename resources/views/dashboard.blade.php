@@ -10,24 +10,26 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-md-4">
-            @php
-    $isEdit = isset($editDocument);
-@endphp
+    @php
+        $isEdit = isset($editDocument);
+    @endphp
 
 <form id="evaluationForm" 
       action="{{ $isEdit ? route('documents.update', $editDocument->id) : route('create-document') }}" 
       method="POST" 
       enctype="multipart/form-data">
-    
     @csrf
     @if($isEdit)
         @method('PUT')
     @endif
 
-    <h3 class="mb-4">{{ $isEdit ? 'Add Evaluation Sheet' : 'Edit Evaluation Sheet' }}</h3>
-    @if(session('success'))
+    <h3 class="mb-4 font-semibold text-xl text-gray-800 leading-tight">
+    {{ $isEdit ? 'Edit ' . $editDocument->name : 'Upload Evaluation Sheet' }}
+</h3>
+ @if(session('success'))
     <div class="alert alert-success">
-        {{ session('success') }}
+    {{ session('success') }}
+    <button type="button" class="btn btn-close fs-6" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
     @if(session('warning'))
@@ -71,23 +73,23 @@
             </div>
 
             <div class="col-md-8">
-                <h3 class="mb-4">All Evaluation Documents</h3>
+                <h3 class="mb-4 font-semibold text-xl text-gray-800 leading-tight">All Evaluation Documents</h3>
                 <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
     <tr>
-        <th>ID</th>
+        <th hidden>ID</th>
         <th>Name</th>
         <th>Project Code</th>
         <th>File</th>
         <th>Created At</th>
         <th>Actions</th>
     </tr>
-</thead>
+</thead>g
 
 <tbody>
     @forelse($documents as $doc)
         <tr>
-            <td>{{ $doc->id }}</td>
+            <td hidden>{{ $doc->id }}</td>
             <td>{{ $doc->name }}</td>
             <td>{{ $doc->code }}</td>
             <td><a href="{{ asset('storage/' . $doc->file_path) }}" target="_blank">View File</a></td>
