@@ -6,6 +6,7 @@
     </x-slot>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <div class="container py-5">
         <div class="row">
@@ -26,8 +27,8 @@
     <h3 class="mb-4 font-semibold text-xl text-gray-800 leading-tight">
     {{ $isEdit ? 'Edit ' . $editDocument->name : 'Upload Evaluation Sheet' }}
 </h3>
- @if(session('success'))
-    <div class="alert alert-success">
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ session('success') }}
     <button type="button" class="btn btn-close fs-6" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -46,6 +47,7 @@
     <div class="mb-3">
         <label class="form-label">Project</label>
         <select name="Code" class="form-select" required>
+        <option value="0" selected>---SELECT PROJECT---</option>
             @foreach($projects as $project)
                 <option value="{{ $project['code'] }}" 
                     {{ $isEdit && $editDocument->code === $project['code'] ? 'selected' : '' }}>
@@ -84,7 +86,7 @@
         <th>Created At</th>
         <th>Actions</th>
     </tr>
-</thead>g
+</thead>
 
 <tbody>
     @forelse($documents as $doc)
@@ -92,15 +94,15 @@
             <td hidden>{{ $doc->id }}</td>
             <td>{{ $doc->name }}</td>
             <td>{{ $doc->code }}</td>
-            <td><a href="{{ asset('storage/' . $doc->file_path) }}" target="_blank">View File</a></td>
+            <td><a class="btn btn-sm btn-primary" href="{{ asset('storage/' . $doc->file_path) }}" style="text-decoration:none" target="_blank">View File <i class="bi bi-box-arrow-in-up-right"></i></a></td>
             <td>{{ $doc->created_at->format('Y-m-d') }}</td>
             <td>
-                <a href="{{ route('documents.edit', $doc->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="{{ route('documents.edit', $doc->id) }}" class="btn btn-sm"><i class="bi bi-pencil-square"></i></a>
 
                 <form action="{{ route('documents.destroy', $doc->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this document?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-sm"><i class="bi bi-trash"></i></button>
                 </form>
             </td>
         </tr>

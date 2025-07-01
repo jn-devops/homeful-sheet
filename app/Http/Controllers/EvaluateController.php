@@ -38,8 +38,9 @@ class EvaluateController extends Controller
             $uploadedFile = $request->file('excel_file');
             $path = 'ES_Temp_Test' . now()->format('Ymd_His') . '.' . $uploadedFile->getClientOriginalExtension();
            
+            // Storage::disk('local')->put($path, $uploadedFile);
             Storage::disk('local')->putFileAs(
-                'temp',
+                '',
                 $uploadedFile,
                 $path
             );
